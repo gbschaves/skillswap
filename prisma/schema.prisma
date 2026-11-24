@@ -1,0 +1,38 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+// em producao trocar para "postgresql" (Neon)
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id       Int         @id @default(autoincrement())
+  nome     String
+  email    String      @unique
+  senha    String
+  cidade   String?
+  bio      String?
+  criadoEm DateTime    @default(now())
+  skills   UserSkill[]
+}
+
+model Skill {
+  id       Int         @id @default(autoincrement())
+  nome     String      @unique
+  usuarios UserSkill[]
+}
+
+// tipo: "ensina" ou "aprende"
+model UserSkill {
+  id      Int    @id @default(autoincrement())
+  tipo    String
+  userId  Int
+  skillId Int
+  user    User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  skill   Skill  @relation(fields: [skillId], references: [id])
+
+  @@unique([userId, skillId, tipo])
+}
