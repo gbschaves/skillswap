@@ -17,6 +17,9 @@ model User {
   bio      String?
   criadoEm DateTime    @default(now())
   skills   UserSkill[]
+
+  curtidasDadas     Curtida[] @relation("CurtidasDadas")
+  curtidasRecebidas Curtida[] @relation("CurtidasRecebidas")
 }
 
 model Skill {
@@ -35,4 +38,17 @@ model UserSkill {
   skill   Skill  @relation(fields: [skillId], references: [id])
 
   @@unique([userId, skillId, tipo])
+}
+
+// gostou = true e curtir, gostou = false e passar
+model Curtida {
+  id       Int      @id @default(autoincrement())
+  deId     Int
+  paraId   Int
+  gostou   Boolean
+  criadoEm DateTime @default(now())
+  de       User     @relation("CurtidasDadas", fields: [deId], references: [id], onDelete: Cascade)
+  para     User     @relation("CurtidasRecebidas", fields: [paraId], references: [id], onDelete: Cascade)
+
+  @@unique([deId, paraId])
 }
