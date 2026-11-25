@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 type Perfil = {
@@ -61,6 +62,20 @@ export default function PaginaPerfil() {
     <main className="mx-auto w-full max-w-lg flex-1 px-6 py-10">
       <h1 className="text-2xl font-bold">Meu perfil</h1>
       <p className="mb-6 text-sm text-zinc-500">{perfil.email}</p>
+
+      {perfil.ensina.length === 0 && perfil.aprende.length === 0 ? (
+        <p className="mb-6 rounded border border-amber-300 bg-amber-50 p-3 text-sm text-amber-800">
+          Cadastre pelo menos uma skill que voce ensina ou quer aprender e salve.
+          Sem isso ninguem aparece pra voce no explorar.
+        </p>
+      ) : (
+        <p className="mb-6 text-sm">
+          Perfil pronto!{" "}
+          <Link href="/explorar" className="text-emerald-600 underline">
+            Ir para o explorar
+          </Link>
+        </p>
+      )}
 
       <form onSubmit={salvar} className="flex flex-col gap-4">
         <label className="flex flex-col gap-1">
