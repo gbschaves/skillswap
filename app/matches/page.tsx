@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 type Match = {
@@ -44,6 +45,9 @@ export default function PaginaMatches() {
             <p className="text-sm">
               <b>Quer aprender:</b> {m.aprende.length > 0 ? m.aprende.join(", ") : "-"}
             </p>
+            <Link href={"/encontros?com=" + m.id} className="botao mt-3 inline-block">
+              Marcar encontro
+            </Link>
           </div>
         ))}
       </div>
