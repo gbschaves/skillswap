@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import CheckIn from "./CheckIn";
 
 type Encontro = {
   id: number;
@@ -91,6 +92,9 @@ export default function PaginaEncontros() {
             <p className="text-sm">{e.local}</p>
             <p className="text-sm">{new Date(e.dataHora).toLocaleString("pt-BR")}</p>
             <p className="text-sm text-zinc-500">Status: {e.status}</p>
+            {e.status === "aceito" && (
+              <CheckIn encontroId={e.id} codigo={e.codigo} souCriador={e.souCriador} aoConfirmar={carregar} />
+            )}
             {!e.souCriador && e.status === "proposto" && (
               <button onClick={() => aceitar(e.id)} className="botao mt-2">
                 Aceitar
