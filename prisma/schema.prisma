@@ -20,6 +20,9 @@ model User {
 
   curtidasDadas     Curtida[] @relation("CurtidasDadas")
   curtidasRecebidas Curtida[] @relation("CurtidasRecebidas")
+
+  encontrosCriados   Encontro[] @relation("EncontrosCriados")
+  encontrosRecebidos Encontro[] @relation("EncontrosRecebidos")
 }
 
 model Skill {
@@ -51,4 +54,18 @@ model Curtida {
   para     User     @relation("CurtidasRecebidas", fields: [paraId], references: [id], onDelete: Cascade)
 
   @@unique([deId, paraId])
+}
+
+// status: "proposto", "aceito" ou "realizado"
+model Encontro {
+  id          Int      @id @default(autoincrement())
+  criadorId   Int
+  convidadoId Int
+  local       String
+  dataHora    DateTime
+  status      String   @default("proposto")
+  codigo      String
+  criadoEm    DateTime @default(now())
+  criador     User     @relation("EncontrosCriados", fields: [criadorId], references: [id], onDelete: Cascade)
+  convidado   User     @relation("EncontrosRecebidos", fields: [convidadoId], references: [id], onDelete: Cascade)
 }
