@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { lerToken } from "@/lib/auth";
 
-const rotasPrivadas = ["/perfil", "/explorar", "/matches", "/encontros"];
+const rotasPrivadas = ["/perfil", "/explorar", "/matches", "/encontros", "/chat"];
 const rotasDeEntrada = ["/", "/login", "/cadastro"];
 
 export default async function proxy(req: NextRequest) {

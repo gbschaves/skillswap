@@ -26,6 +26,8 @@ model User {
   encontrosRecebidos  Encontro[]  @relation("EncontrosRecebidos")
   avaliacoesDadas     Avaliacao[] @relation("AvaliacoesDadas")
   avaliacoesRecebidas Avaliacao[] @relation("AvaliacoesRecebidas")
+  mensagensEnviadas   Mensagem[]  @relation("MensagensEnviadas")
+  mensagensRecebidas  Mensagem[]  @relation("MensagensRecebidas")
 }
 
 model Skill {
@@ -87,4 +89,14 @@ model Avaliacao {
   para       User     @relation("AvaliacoesRecebidas", fields: [paraId], references: [id], onDelete: Cascade)
 
   @@unique([encontroId, deId])
+}
+
+model Mensagem {
+  id       Int      @id @default(autoincrement())
+  deId     Int
+  paraId   Int
+  texto    String
+  criadoEm DateTime @default(now())
+  de       User     @relation("MensagensEnviadas", fields: [deId], references: [id], onDelete: Cascade)
+  para     User     @relation("MensagensRecebidas", fields: [paraId], references: [id], onDelete: Cascade)
 }
