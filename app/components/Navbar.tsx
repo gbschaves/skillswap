@@ -13,6 +13,8 @@ export default async function Navbar() {
       <div className="flex items-center gap-4 text-sm">
         {sessao ? (
           <>
+            <Link href="/explorar">Explorar</Link>
+            <Link href="/matches">Matches</Link>
             <Link href="/perfil">Meu perfil</Link>
             <BotaoSair />
           </>
