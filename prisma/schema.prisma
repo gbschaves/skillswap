@@ -2,10 +2,11 @@ generator client {
   provider = "prisma-client-js"
 }
 
-// em producao trocar para "postgresql" (Neon)
+// banco no Neon. DIRECT_URL e a url sem "-pooler", usada pelo prisma db push
 datasource db {
-  provider = "sqlite"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
 }
 
 model User {
