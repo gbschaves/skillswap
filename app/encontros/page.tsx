@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Avaliar from "./Avaliar";
 import CheckIn from "./CheckIn";
 
 type Encontro = {
@@ -92,6 +93,7 @@ export default function PaginaEncontros() {
             <p className="text-sm">{e.local}</p>
             <p className="text-sm">{new Date(e.dataHora).toLocaleString("pt-BR")}</p>
             <p className="text-sm text-zinc-500">Status: {e.status}</p>
+            {e.status === "realizado" && <Avaliar encontroId={e.id} />}
             {e.status === "aceito" && (
               <CheckIn encontroId={e.id} codigo={e.codigo} souCriador={e.souCriador} aoConfirmar={carregar} />
             )}

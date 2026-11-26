@@ -21,8 +21,10 @@ model User {
   curtidasDadas     Curtida[] @relation("CurtidasDadas")
   curtidasRecebidas Curtida[] @relation("CurtidasRecebidas")
 
-  encontrosCriados   Encontro[] @relation("EncontrosCriados")
-  encontrosRecebidos Encontro[] @relation("EncontrosRecebidos")
+  encontrosCriados    Encontro[]  @relation("EncontrosCriados")
+  encontrosRecebidos  Encontro[]  @relation("EncontrosRecebidos")
+  avaliacoesDadas     Avaliacao[] @relation("AvaliacoesDadas")
+  avaliacoesRecebidas Avaliacao[] @relation("AvaliacoesRecebidas")
 }
 
 model Skill {
@@ -58,14 +60,30 @@ model Curtida {
 
 // status: "proposto", "aceito" ou "realizado"
 model Encontro {
-  id          Int      @id @default(autoincrement())
+  id          Int         @id @default(autoincrement())
   criadorId   Int
   convidadoId Int
   local       String
   dataHora    DateTime
-  status      String   @default("proposto")
+  status      String      @default("proposto")
   codigo      String
-  criadoEm    DateTime @default(now())
-  criador     User     @relation("EncontrosCriados", fields: [criadorId], references: [id], onDelete: Cascade)
-  convidado   User     @relation("EncontrosRecebidos", fields: [convidadoId], references: [id], onDelete: Cascade)
+  criadoEm    DateTime    @default(now())
+  criador     User        @relation("EncontrosCriados", fields: [criadorId], references: [id], onDelete: Cascade)
+  avaliacoes  Avaliacao[]
+  convidado   User        @relation("EncontrosRecebidos", fields: [convidadoId], references: [id], onDelete: Cascade)
+}
+
+model Avaliacao {
+  id         Int      @id @default(autoincrement())
+  encontroId Int
+  deId       Int
+  paraId     Int
+  nota       Int
+  comentario String?
+  criadoEm   DateTime @default(now())
+  encontro   Encontro @relation(fields: [encontroId], references: [id], onDelete: Cascade)
+  de         User     @relation("AvaliacoesDadas", fields: [deId], references: [id], onDelete: Cascade)
+  para       User     @relation("AvaliacoesRecebidas", fields: [paraId], references: [id], onDelete: Cascade)
+
+  @@unique([encontroId, deId])
 }
