@@ -27,7 +27,7 @@ export default function Cadastro() {
       setErro(dados.erro);
       return;
     }
-    router.push("/perfil");
+    router.push("/explorar");
     router.refresh();
   }
 

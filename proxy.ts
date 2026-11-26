@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { lerToken } from "@/lib/auth";
 
 const rotasPrivadas = ["/perfil", "/explorar", "/matches", "/encontros"];
-const rotasDeEntrada = ["/login", "/cadastro"];
+const rotasDeEntrada = ["/", "/login", "/cadastro"];
 
 export default async function proxy(req: NextRequest) {
   const path = req.nextUrl.pathname;
@@ -13,9 +13,9 @@ export default async function proxy(req: NextRequest) {
     return NextResponse.redirect(new URL("/login", req.url));
   }
 
-  // quem ja esta logado nao precisa ver login/cadastro
+  // logado nao precisa ver a home, login nem cadastro
   if (rotasDeEntrada.includes(path) && sessao) {
-    return NextResponse.redirect(new URL("/perfil", req.url));
+    return NextResponse.redirect(new URL("/explorar", req.url));
   }
 
   return NextResponse.next();

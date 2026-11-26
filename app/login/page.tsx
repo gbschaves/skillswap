@@ -27,7 +27,7 @@ export default function Login() {
       setErro(dados.erro);
       return;
     }
-    router.push("/perfil");
+    router.push("/explorar");
     router.refresh();
   }
 
