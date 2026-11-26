@@ -10,6 +10,8 @@ type Perfil = {
   bio: string | null;
   ensina: string[];
   aprende: string[];
+  media: number | null;
+  totalAvaliacoes: number;
 };
 
 // "violao, excel" -> ["violao", "excel"]
@@ -61,7 +63,12 @@ export default function PaginaPerfil() {
   return (
     <main className="mx-auto w-full max-w-lg flex-1 px-6 py-10">
       <h1 className="text-2xl font-bold">Meu perfil</h1>
-      <p className="mb-6 text-sm text-zinc-500">{perfil.email}</p>
+      <p className="text-sm text-zinc-500">{perfil.email}</p>
+      <p className="mb-6 text-sm">
+        {perfil.media !== null
+          ? "Nota media: " + perfil.media.toFixed(1) + " (" + perfil.totalAvaliacoes + " avaliacoes)"
+          : "Voce ainda nao recebeu avaliacoes"}
+      </p>
 
       {perfil.ensina.length === 0 && perfil.aprende.length === 0 ? (
         <p className="mb-6 rounded border border-amber-300 bg-amber-50 p-3 text-sm text-amber-800">

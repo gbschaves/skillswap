@@ -4,9 +4,12 @@ import { pegarSessao } from "@/lib/auth";
 async function buscarPerfil(userId: number) {
   const user = await db.user.findUnique({
     where: { id: userId },
-    include: { skills: { include: { skill: true } } },
+    include: { skills: { include: { skill: true } }, avaliacoesRecebidas: true },
   });
   if (!user) return null;
+
+  const notas = user.avaliacoesRecebidas.map((a) => a.nota);
+  const media = notas.length > 0 ? notas.reduce((soma, n) => soma + n, 0) / notas.length : null;
 
   return {
     id: user.id,
@@ -16,6 +19,8 @@ async function buscarPerfil(userId: number) {
     bio: user.bio,
     ensina: user.skills.filter((s) => s.tipo === "ensina").map((s) => s.skill.nome),
     aprende: user.skills.filter((s) => s.tipo === "aprende").map((s) => s.skill.nome),
+    media,
+    totalAvaliacoes: notas.length,
   };
 }
 
