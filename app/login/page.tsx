@@ -8,6 +8,7 @@ export default function Login() {
   const router = useRouter();
   const [erro, setErro] = useState("");
   const [carregando, setCarregando] = useState(false);
+  const [pedirCodigo, setPedirCodigo] = useState(false);
 
   async function enviar(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -24,7 +25,8 @@ export default function Login() {
     setCarregando(false);
     if (!res.ok) {
       const dados = await res.json();
-      setErro(dados.erro);
+      if (dados.precisa2fa) setPedirCodigo(true);
+      setErro(dados.erro || "");
       return;
     }
     router.push("/explorar");
@@ -37,6 +39,17 @@ export default function Login() {
       <form onSubmit={enviar} className="flex flex-col gap-3">
         <input name="email" type="email" placeholder="Email" required className="input" />
         <input name="senha" type="password" placeholder="Senha" required className="input" />
+        {pedirCodigo && (
+          <input
+            name="codigo"
+            inputMode="numeric"
+            maxLength={6}
+            placeholder="Codigo do app autenticador"
+            required
+            autoFocus
+            className="input"
+          />
+        )}
         {erro && <p className="text-sm text-red-600">{erro}</p>}
         <button disabled={carregando} className="botao">
           {carregando ? "Entrando..." : "Entrar"}

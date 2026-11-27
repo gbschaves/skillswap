@@ -1,8 +1,9 @@
 import { db } from "@/lib/db";
+import { authenticator } from "otplib";
 import { conferirSenha, criarSessao } from "@/lib/auth";
 
 export async function POST(req: Request) {
-  const { email, senha } = await req.json();
+  const { email, senha, codigo } = await req.json();
 
   if (!email || !senha) {
     return Response.json({ erro: "Informe email e senha" }, { status: 400 });
@@ -15,6 +16,14 @@ export async function POST(req: Request) {
   // mesma mensagem nos dois casos pra nao entregar quais emails existem
   if (!user || !(await conferirSenha(senha, user.senha))) {
     return Response.json({ erro: "Email ou senha incorretos" }, { status: 401 });
+  }
+
+  // senha certa mas tem 2fa: pede o codigo do app antes de criar a sessao
+  if (user.totpSecret) {
+    if (!codigo) return Response.json({ precisa2fa: true }, { status: 401 });
+    if (!authenticator.check(String(codigo), user.totpSecret)) {
+      return Response.json({ erro: "Codigo invalido", precisa2fa: true }, { status: 401 });
+    }
   }
 
   await criarSessao(user.id);

@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import DoisFatores from "./DoisFatores";
 
 type Perfil = {
   nome: string;
@@ -111,6 +112,8 @@ export default function PaginaPerfil() {
           {salvando ? "Salvando..." : "Salvar"}
         </button>
       </form>
+
+      <DoisFatores />
     </main>
   );
 }

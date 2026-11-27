@@ -17,6 +17,8 @@ model User {
   cidade   String?
   bio      String?
   criadoEm DateTime    @default(now())
+  // segredo do app autenticador, null = 2fa desligado
+  totpSecret String?
   skills   UserSkill[]
 
   curtidasDadas     Curtida[] @relation("CurtidasDadas")
