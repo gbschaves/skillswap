@@ -15,6 +15,7 @@ export default async function Navbar() {
           <>
             <Link href="/explorar">Explorar</Link>
             <Link href="/matches">Matches</Link>
+            <Link href="/encontros">Encontros</Link>
             <Link href="/perfil">Meu perfil</Link>
             <BotaoSair />
           </>
