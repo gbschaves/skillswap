@@ -45,13 +45,15 @@ export default function PaginaMatches() {
             <div className="flex flex-1 flex-col p-4">
               <h2 className="font-bold">{m.nome}</h2>
               <p className="mb-2 text-sm text-zinc-500">{m.cidade || "Cidade nao informada"}</p>
-              <div className="mb-1 flex flex-wrap gap-1">
+              <p className="mb-1 text-xs font-bold uppercase text-zinc-500">Ensina</p>
+              <div className="mb-2 flex flex-wrap gap-1">
                 {m.ensina.map((s) => (
                   <span key={s} className="chip bg-emerald-100 text-emerald-800">
                     {s}
                   </span>
                 ))}
               </div>
+              <p className="mb-1 text-xs font-bold uppercase text-zinc-500">Quer aprender</p>
               <div className="mb-3 flex flex-wrap gap-1">
                 {m.aprende.map((s) => (
                   <span key={s} className="chip bg-sky-100 text-sky-800">
