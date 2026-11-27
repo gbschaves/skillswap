@@ -1,5 +1,5 @@
 import { db } from "@/lib/db";
-import { authenticator } from "otplib";
+import { authenticator } from "@/lib/totp";
 import { conferirSenha, criarSessao } from "@/lib/auth";
 
 export async function POST(req: Request) {

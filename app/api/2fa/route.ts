@@ -1,4 +1,4 @@
-import { authenticator } from "otplib";
+import { authenticator } from "@/lib/totp";
 import QRCode from "qrcode";
 import { db } from "@/lib/db";
 import { pegarSessao } from "@/lib/auth";
