@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import Avaliar from "./Avaliar";
 import CheckIn from "./CheckIn";
 
@@ -15,6 +16,7 @@ type Encontro = {
 };
 
 export default function PaginaEncontros() {
+  const router = useRouter();
   const [encontros, setEncontros] = useState<Encontro[]>([]);
   const [comId, setComId] = useState<string | null>(null);
   const [mensagem, setMensagem] = useState("");
@@ -58,6 +60,7 @@ export default function PaginaEncontros() {
   async function aceitar(id: number) {
     await fetch("/api/encontros/" + id, { method: "PATCH" });
     carregar();
+    router.refresh();
   }
 
   return (
