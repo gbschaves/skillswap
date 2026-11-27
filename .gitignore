@@ -43,3 +43,4 @@ next-env.d.ts
 # banco local
 /prisma/dev.db*
 !.env.example
+/prisma/sqlite/

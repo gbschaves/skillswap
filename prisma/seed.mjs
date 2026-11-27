@@ -9,6 +9,10 @@ const pessoas = [
   { nome: "Carla Mendes", email: "carla@teste.com", cidade: "Campinas", ensina: ["culinária"], aprende: ["inglês", "xadrez"] },
   { nome: "Diego Rocha", email: "diego@teste.com", cidade: "São Paulo", ensina: ["fotografia"], aprende: ["culinária"] },
   { nome: "Elisa Martins", email: "elisa@teste.com", cidade: "Santos", ensina: ["inglês", "fotografia"], aprende: ["violão"] },
+  { nome: "Gabriel Costa", email: "gabriel@teste.com", cidade: "Campinas", ensina: ["pandeiro", "percussão"], aprende: ["programação"] },
+  { nome: "Kaique Ferreira", email: "kaique@teste.com", cidade: "Guarulhos", ensina: ["pandeiro", "cavaquinho"], aprende: ["inglês"] },
+  { nome: "Fernanda Alves", email: "fernanda@teste.com", cidade: "São Paulo", ensina: ["inglês", "pandeiro"], aprende: ["violão"] },
+  { nome: "Otávio Moreira", email: "otavio@teste.com", cidade: "São Paulo", ensina: ["espanhol"], aprende: ["pandeiro", "violão"] },
 ];
 
 async function main() {

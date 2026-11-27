@@ -16,11 +16,15 @@ A ideia é um "Tinder de skills": cada pessoa cadastra o que sabe ensinar e o qu
 ```bash
 npm install
 cp .env.example .env      # e preencha o AUTH_SECRET
-npx prisma db push        # cria o banco local
-npm run dev
+npm run dev               # cria/atualiza o banco local em prisma/dev.db (sqlite)
+npm run seed:local        # perfis de teste, senha 123456
 ```
 
 Abra http://localhost:3000
+
+O `npm run dev` usa uma copia do schema com sqlite (`scripts/sqlite.mjs`), entao o local nunca mexe no banco de producao. A Vercel usa o `prisma/schema.prisma`, que aponta pro Postgres do Neon.
+
+`npx prisma db push` sem `--schema` altera o banco de producao (Neon), so rode quando mudar o schema.
 
 ## Rotas da API
 
